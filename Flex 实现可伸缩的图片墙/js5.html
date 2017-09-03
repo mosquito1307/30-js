@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Flex 实现可伸缩的图片墙</title>
+    <style>
+        html {
+            /*
+             *content-box:padding鍜宐order涓嶈鍖呭惈鍦ㄥ畾涔夌殑width鍜宧eight涔嬪唴銆?
+             *瀵硅薄鐨勫疄闄呭搴︾瓑浜庤缃殑width鍊煎拰border銆乸adding涔嬪拰锛?
+             *鍗?( Element width = width + border + padding )姝ゅ睘鎬ц〃鐜颁负鏍囧噯妯″紡涓嬬殑鐩掓ā鍨嬨€?
+             *
+             *border-box锛歱adding鍜宐order琚寘鍚湪瀹氫箟鐨剋idth鍜宧eight涔嬪唴銆?
+             *瀵硅薄鐨勫疄闄呭搴﹀氨绛変簬璁剧疆鐨剋idth鍊硷紝鍗充娇瀹氫箟鏈塨order鍜宲adding涔熶笉浼氭敼鍙樺璞＄殑瀹為檯瀹藉害锛?
+             *鍗?( Element width = width )姝ゅ睘鎬ц〃鐜颁负鎬紓妯″紡涓嬬殑鐩掓ā鍨嬨€?
+             */
+            box-sizing: border-box;
+            background: #ffc600;
+            font-family: 'helvetica neue';
+            font-size: 20px;
+            font-weight: 200;
+        }
+
+        body {
+            margin: 0;
+        }
+
+        *,
+        *:before,
+        *:after {
+            box-sizing: inherit;
+        }
+
+        .panels {
+            min-height: 100vh;
+            display: flex;
+            overflow: hidden;
+        }
+
+        .panel {
+            background: #6B0F9C;
+            box-shadow: inset 0 0 0 5px rgba(255, 255, 255, 0.1);
+            color: white;
+            text-align: center;
+            align-items: center;
+            transition: font-size 0.7s cubic-bezier(0.61, -0.19, 0.7, -0.11),
+            flex 0.7s cubic-bezier(0.61, -0.19, 0.7, -0.11),
+            background 0.2s;
+            font-size: 20px;
+            background-size: cover;
+            background-position: center;
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+        }
+
+
+        .panel1 {
+            background-image: url(https://source.unsplash.com/gYl-UtwNg_I/1500x1500);
+        }
+
+        .panel2 {
+            background-image: url(https://source.unsplash.com/1CD3fd8kHnE/1500x1500);
+        }
+
+        .panel3 {
+            background-image: url(https://images.unsplash.com/photo-1465188162913-8fb5709d6d57?ixlib=rb-0.3.5&q=80&fm=jpg&crop=faces&cs=tinysrgb&w=1500&h=1500&fit=crop&s=967e8a713a4e395260793fc8c802901d);
+        }
+
+        .panel4 {
+            background-image: url(https://source.unsplash.com/ITjiVXcwVng/1500x1500);
+        }
+
+        .panel5 {
+            background-image: url(https://source.unsplash.com/3MNzGlQM7qs/1500x1500);
+        }
+
+        .panel>* {
+            margin: 0;
+            width: 100%;
+            transition: transform 0.5s;
+            border: 2px solid red;
+            flex: 1;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+        .panel>*:first-child{
+            transform: translateY(-100%);
+        }
+        .panel.openActive>*:first-child { transform: translateY(0); }
+        .panel>*:last-child{
+            transform: translateY(100%);
+        }
+        .panel.openActive>*:last-child { transform: translateY(0); }
+
+        .panel p {
+            text-transform: uppercase;
+            font-family: 'Amatic SC', cursive;
+            text-shadow: 0 0 4px rgba(0, 0, 0, 0.72), 0 0 14px rgba(0, 0, 0, 0.45);
+            font-size: 2em;
+        }
+
+        .panel p:nth-child(2) {
+            font-size: 4em;
+        }
+
+        .panel.open {
+            font-size: 40px;
+            flex:5;
+        }
+    </style>
+
+</head>
+<body>
+<div class="panels">
+    <div class="panel panel1">
+        <p>Hey</p>
+        <p>Let's</p>
+        <p>Dance</p>
+    </div>
+    <div class="panel panel2">
+        <p>Give</p>
+        <p>Take</p>
+        <p>Receive</p>
+    </div>
+    <div class="panel panel3">
+        <p>Experience</p>
+        <p>It</p>
+        <p>Today</p>
+    </div>
+    <div class="panel panel4">
+        <p>Give</p>
+        <p>All</p>
+        <p>You can</p>
+    </div>
+    <div class="panel panel5">
+        <p>Life</p>
+        <p>In</p>
+        <p>Motion</p>
+    </div>
+</div>
+<script>
+    const objPanel=document.querySelectorAll(".panel");
+    function toggleOpen() {
+       this.classList.toggle("open"); //有就删除没有就添加
+    }
+    function toggleActive(e) {
+        console.log(e);
+        if(e.propertyName.includes("flex")){
+            this.classList.toggle('openActive');
+        }
+
+    }
+    objPanel.forEach(panel=>panel.addEventListener("click",toggleOpen));
+    objPanel.forEach(panel => panel.addEventListener('transitionend', toggleActive));
+</script>
+</body>
+</html>

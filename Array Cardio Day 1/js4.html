@@ -1,0 +1,140 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Array Cardio</title>
+</head>
+<body>
+<p>使用控制台下的console看效果</p>
+<script>
+    const inventors = [{
+        first: 'Albert',
+        last: 'Einstein',
+        year: 1879,
+        passed: 1955
+    },
+        {
+            first: 'Isaac',
+            last: 'Newton',
+            year: 1643,
+            passed: 1727
+        },
+        {
+            first: 'Galileo',
+            last: 'Galilei',
+            year: 1564,
+            passed: 1642
+        },
+        {
+            first: 'Marie',
+            last: 'Curie',
+            year: 1867,
+            passed: 1934
+        },
+        {
+            first: 'Johannes',
+            last: 'Kepler',
+            year: 1571,
+            passed: 1630
+        },
+        {
+            first: 'Nicolaus',
+            last: 'Copernicus',
+            year: 1473,
+            passed: 1543
+        },
+        {
+            first: 'Max',
+            last: 'Planck',
+            year: 1858,
+            passed: 1947
+        },
+        {
+            first: 'Katherine',
+            last: 'Blodgett',
+            year: 1898,
+            passed: 1979
+        },
+        {
+            first: 'Ada',
+            last: 'Lovelace',
+            year: 1815,
+            passed: 1852
+        },
+        {
+            first: 'Sarah E.',
+            last: 'Goode',
+            year: 1855,
+            passed: 1905
+        },
+        {
+            first: 'Lise',
+            last: 'Meitner',
+            year: 1878,
+            passed: 1968
+        },
+        {
+            first: 'Hanna',
+            last: 'Hammarström',
+            year: 1829,
+            passed: 1909
+        }
+    ];
+
+    const people = ['Beck, Glenn', 'Becker, Carl', 'Beckett, Samuel', 'Beddoes, Mick', 'Beecher, Henry', 'Beethoven, Ludwig', 'Begin, Menachem', 'Belloc, Hilaire', 'Bellow, Saul', 'Benchley, Robert',      'Benenson, Peter', 'Ben-Gurion, David', 'Benjamin, Walter', 'Benn, Tony', 'Bennington, Chester',      'Benson, Leana', 'Bent, Silas', 'Bentsen, Lloyd', 'Berger, Ric', 'Bergman, Ingmar', 'Berio, Luciano',      'Berle, Milton', 'Berlin, Irving', 'Berne, Eric', 'Bernhard, Sandra', 'Berra, Yogi', 'Berry, Halle',      'Berry, Wendell', 'Bethea, Erin', 'Bevan, Aneurin', 'Bevel, Ken', 'Biden, Joseph', 'Bierce, Ambrose',      'Biko, Steve', 'Billings, Josh', 'Biondo, Frank', 'Birrell, Augustine', 'Black Elk', 'Blair, Robert',      'Blair, Tony', 'Blake, William'];
+    const data = ['car', 'car', 'truck', 'truck', 'bike', 'walk', 'car', 'van', 'bike', 'walk', 'car', 'van', 'car', 'truck', 'pogostick'];
+
+    /*筛选 16 世纪出生的发明家*/
+    const _fifthBirth=inventors.filter(function(inventor){ //filter(对每个数组元素进行测试的函数，函数被调用时this旳值)。结果为true，就保留反之舍去
+        if(inventor.year>=1500 && inventor.year<1600){
+            return true;
+    }else {
+            return false;
+    }
+    });
+    console.table(_fifthBirth);
+
+    /*展示他们的姓和名*/
+    const _showName=inventors.map((inventor)=>`${inventor.first}${inventor.last}`);//map(对数组中每个元素进行执行的函数)
+    console.log(_showName);
+
+    /*把他们按照年龄从大到小进行排序*/
+    const _sortAge=inventors.sort((a,b)=>{  //sort(比较函数)
+        if (a.year>b.year){
+            return 1;
+        }else {
+            return -1;
+        }
+    });
+
+    console.table(_sortAge);
+
+    /*计算所有的发明家加起来一共活了多少岁*/
+    const _totalAge=inventors.reduce((total,inventor)=>total+(inventor.passed-inventor.year),0);
+    //reduce((初始值或返回值,当前元素)=>{},初始值)  接收一个函数作为累加器
+    console.log(_totalAge);
+
+    /*按照他们活了多久来进行排序*/
+    const _compareAge=inventors.sort((a,b)=>{
+        let aAge=a.passed-a.year;
+        let bAge=b.passed-b.year;
+        return aAge>bAge?1:-1;
+    });
+    console.table(_compareAge);
+
+    /*按照姓氏来对发明家进行排序*/
+    const _compareName=people.sort((a,b)=>{
+        const [alast,afirst]=a.split(",");
+        const [blast,bfirst]=b.split(",");
+        return a.last>b.last?1:-1;
+    });
+
+    console.log(_compareAge);
+
+
+</script>
+</body>
+</html>
