@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Array Cardio Day 1</title>
+</head>
+<body>
+<p>使用控制台下的console看效果</p>
+<script>
+    const people = [
+        { name: 'Wes', year: 1988 },
+        { name: 'Kait', year: 1986 },
+        { name: 'Irv', year: 1970 },
+        { name: 'Lux', year: 2015 }
+    ];const comments = [
+        { text: 'Love this!', id: 523423 },
+        { text: 'Super good', id: 823423 },
+        { text: 'You are the best', id: 2039842 },
+        { text: 'Ramen is my fav food ever', id: 123523 },
+        { text: 'Nice Nice Nice!', id: 542328 }
+    ];
+    /*是否至少有一人年满19周岁？*/
+    const isAdult=people.some(per=>{   //some(func)  数组中至少一个满足func，结果返回true;都不满足func，则返回false
+        const Age1=new Date().getFullYear();
+       if (Age1-per.year>=19){
+           return true;
+       };
+    });
+    console.log(isAdult);
+
+    /*是否每一个人都年满19周岁？*/
+    const everyAdult=people.every(per=>{   //every(func)  数组中每一个都满足func，结果返回true;只要有一个不满足func，则返回false
+        const Age2=new Date().getFullYear();
+    if (Age2-per.year>=19){
+        return true;
+    };
+    });
+    console.log(everyAdult);
+
+    /*是否存在id=823423的评论？*/
+    const commentId=comments.find(comment=>comment.id==823423);  //find(func)寻找出第一个满足func的元素成员，返回该成员。
+    console.log(commentId);
+
+    /*找到id=823423的评论的序列号(下标)*/
+    const commentIdx=comments.findIndex(comment=>comment.id==823423);  //findIndex(func)寻找出第一个满足func的元素成员索引值，返回该索引值。
+    console.log(commentIdx);
+
+    /*删除id=823423的评论*/
+    const deleteComment=comments.splice(comments.findIndex(comment=>comment.id==823423),1);//splice(index,deleteCount,value,...)从索引值为index处删除deletecount个元素（0个表示插入），插入value。返回被删除元素组成的数组
+    //const deleteComment=[...comments.slice(0,comments.findIndex(comment=>comment.id==823423),...comments.slice(comments.findIndex(comment=>comment.id==823423)+1];
+    //slice(start,end)  选取索引为start到end-1之间的元素
+    console.log(deleteComment);
+
+
+</script>
+</body>
+</html>
