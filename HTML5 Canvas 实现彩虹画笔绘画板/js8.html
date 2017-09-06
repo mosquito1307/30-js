@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>HTML5 Canvas 实现彩虹画笔绘画板</title>
+</head>
+<body>
+<canvas id="canvas" width="800" height="800"></canvas>
+
+<script>
+    var objCanvas =document.getElementById("canvas");
+    if (objCanvas.getContext) {
+        //支持
+        var ctx = objCanvas.getContext('2d');
+        objCanvas.width = window.innerWidth;
+        objCanvas.height = window.innerHeight;// drawing code here
+        let isDraw=false;
+        let x;
+        let y; //初始鼠标的位置
+        let lastX;
+        let lastY;
+        let hue=0;
+        let beginChange=true;
+        ctx.lineWidth=30;
+        ctx.lineCap="round";
+        ctx.lineJoin="round";
+        ctx.strokeStyle="#f00";
+
+        function draw(e) {
+
+            if(!isDraw) return ;
+
+            ctx.strokeStyle = `hsl(${ hue }, 90%, 50%)`;
+            if (hue >= 360) hue = 0;
+            hue++;
+
+            if (ctx.lineWidth>=60 || ctx.lineWidth<=10){
+                beginChange=!beginChange;
+            }
+            if(beginChange){
+                ctx.lineWidth++;
+            }else {
+                ctx.lineWidth--;
+            }
+
+
+            x=e.offsetX;
+            y=e.offsetY;
+
+            //开始绘制
+            ctx.beginPath();
+            ctx.moveTo(lastX,lastY);
+            ctx.lineTo(x,y);
+            [lastX,lastY]=[x,y];
+            ctx.stroke();
+        }
+
+        objCanvas.addEventListener("mousemove",draw);
+        objCanvas.addEventListener("mousedown",()=>isDraw=true);
+        objCanvas.addEventListener("mouseup",()=>isDraw=false);
+        objCanvas.addEventListener("mouseout",()=>isDraw=false);
+    } else {
+        //不支持
+        // canvas-unsupported code here
+        console.log("canvas-unsupported code here");
+    }
+</script>
+</body>
+</html>
