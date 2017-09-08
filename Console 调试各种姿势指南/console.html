@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Console 调试各种姿势指南</title>
+</head>
+<body>
+<p style="color:red;font-size:40px" onClick="makeGreen()">suon</p>
+<script>
+    const dogs = [{
+        name: 'Snickers',
+        age: 2
+    }, {
+        name: 'hugo',
+        age: 8
+    }];
+
+    function makeGreen() {
+        var objP=document.querySelector("p");
+        objP.style.color="#BADA55";
+        objP.style.fontSize="50px";
+        objP.innerHTML="打开控制台，查看调试效果。";
+    }
+
+    console.log("hello");
+
+    console.log("I am a %s","SUON");
+    console.log("my age is %d",20);
+
+    console.warn("警告");
+    console.error("错误");
+
+    console.clear();
+
+    console.time('fetch my data');//时间开始
+    fetch("https://gist.githubusercontent.com/liyuechun/f00bb31fb8f46ee0a283a4d182f691b4/raw/3ea4b427917048cdc596b38b67b5ed664605b76d/TangPoetry.json")
+        .then(data => data.json())
+    .then(data => {
+        console.timeEnd('fetch my data');
+    console.log(data);//时间结束
+    });
+
+
+</script>
+</body>
+</html>
