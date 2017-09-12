@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title> 键盘输入序列的验证指南</title>
+    <script type="text/javascript" src="http://www.cornify.com/js/cornify.js"></script>
+</head>
+<body>
+<div style="font-size:20px;color:green">请输入:suon</div>
+
+<div style="font-size:40px;color:red" class="input_word_pre"></div>
+<div style="font-size:40px;color:blue" class="input_word_af"></div>
+<script>
+ const pressed=[];
+ const str="suon";
+ const objPre=document.querySelector(".input_word_pre");
+ const objAf=document.querySelector(".input_word_af");
+ window.addEventListener("keyup",(e)=>{
+    const reg=new RegExp("[A-z]","gi");
+    if (e.key.length==1 && e.key.match(reg)){
+        pressed.push(e.key);
+        objPre.innerText=pressed.join("");
+        pressed.splice(0,pressed.length-str.length);
+        objAf.innerText=pressed.join("");
+        if (pressed.join("").includes(str)){
+            cornify_add();
+        }
+    }
+});
+</script>
+</body>
+</html>
